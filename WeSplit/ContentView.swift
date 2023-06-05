@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 20
     @FocusState private var amountIsFocused: Bool
+
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
@@ -49,6 +50,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                
                 Section {
                     Picker("Tip Percentage", selection: $tipPercentage) {
                         ForEach(0 ..< 101) {
@@ -58,13 +60,17 @@ struct ContentView: View {
                 } header: {
                     Text("Select tip percentage")
                 }
+                
                 Section {
                     Text(totalCheckAccountingForTip, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        .foregroundColor(tipPercentage <= 15 ? .red : .primary)
                 } header: {
                 Text("Grand Total")
-            }
+                }
+                
                 Section {
                     Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        .foregroundColor(tipPercentage <= 15 ? .red : .primary)
                 } header: {
                     Text("Amount per person")
                 }
@@ -83,7 +89,6 @@ struct ContentView: View {
         
     }
 }
-
 
 
 
